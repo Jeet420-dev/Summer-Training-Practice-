@@ -1,3 +1,2 @@
 # Summer-Training-Practice-
-Internship Assignment 
-Hi
+Internship Project to write a Python program of guessing any number 
