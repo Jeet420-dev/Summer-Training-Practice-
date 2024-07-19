@@ -1,0 +1,54 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Convert 'price' to numeric, forcing errors to NaN and then dropping them
+data['price'] = pd.to_numeric(data['price'], errors='coerce')
+data = data.dropna(subset=['price'])
+
+# Convert 'date' to datetime format
+data['date'] = pd.to_datetime(data['date'], format='%d-%m-%Y')
+
+# Set up the plotting style
+sns.set(style="whitegrid")
+
+# 1. Price Distribution
+plt.figure(figsize=(10, 6))
+sns.histplot(data['price'], bins=30, kde=True)
+plt.title('Price Distribution of Flights')
+plt.xlabel('Price')
+plt.ylabel('Frequency')
+plt.show()
+
+# 2. Price Trends Over Time
+plt.figure(figsize=(14, 8))
+data.groupby('date')['price'].mean().plot()
+plt.title('Average Price Over Time')
+plt.xlabel('Date')
+plt.ylabel('Average Price')
+plt.show()
+
+# 3. Price Variation by Airline
+plt.figure(figsize=(14, 8))
+sns.boxplot(x='airline', y='price', data=data)
+plt.title('Price Variation by Airline')
+plt.xlabel('Airline')
+plt.ylabel('Price')
+plt.xticks(rotation=90)
+plt.show()
+
+# 4. Price Variation by Source City
+plt.figure(figsize=(14, 8))
+sns.boxplot(x='source_city', y='price', data=data)
+plt.title('Price Variation by Source City')
+plt.xlabel('Source City')
+plt.ylabel('Price')
+plt.xticks(rotation=90)
+plt.show()
+
+# 5. Price Variation by Class
+plt.figure(figsize=(14, 8))
+sns.boxplot(x='class', y='price', data=data)
+plt.title('Price Variation by Class')
+plt.xlabel('Class')
+plt.ylabel('Price')
+plt.show()
